@@ -1,0 +1,12 @@
+       html,body,button,input,select,textarea{font-family: 'Open Sans', sans-serif;}
+       .bar {
+	   fill: darkcyan;
+       }
+
+       .bar:hover {
+	   fill: chocolate;
+       }
+
+       .axis--x path {
+	   display: none;
+       }
