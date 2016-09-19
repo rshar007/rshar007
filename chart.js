@@ -27,6 +27,17 @@ function combineDateAndUsage(dates, usage) {
     return dailyUsage
 }
 
+/**
+* @param {number} watts represents the number of watts used
+* @return {string} dollarAmount which is the estimated dollar value of energy
+*    consumption
+*/
+function estimateDollars(watts) {
+    let pricePerWatt = 0.21 * .001
+
+    return "$" + String((watts * pricePerWatt).toFixed(2))
+}
+
 d3.json("data.json", (error, data) => {
     // throw an error if data could not be loaded
     if (error) throw error
@@ -81,13 +92,18 @@ d3.json("data.json", (error, data) => {
     
     let monthUse = d3.select("div.monthUse")
     monthUse.html("You used " + String(data.monthly_usage) +
-		     " watts this month.")
+		  " watts this month, which is about " +
+		  estimateDollars(data.monthly_usage))
 
     let weekdayAverage = d3.select("div.weekdayAverage")
     weekdayAverage.html("Your weekday average was " +
-			String(data.weekday_average) + " watts.")
+			String(data.weekday_average) +
+			" watts, which is about " +
+			estimateDollars(data.weekday_average) + " per day")
 
     let averageDay = d3.select("div.averageDay")
     averageDay.html("On average, you used "+
-		    String(data.average_day) + " watts per day.")
+		    String(data.average_day) +
+		    " watts per day, which is about " +
+		    estimateDollars(data.average_day) + " per day" )
 })
